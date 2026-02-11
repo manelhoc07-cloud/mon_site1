@@ -92,18 +92,21 @@
              position: absolute;
              top: 50px;
              left: 20px;
-             width: 460px;    /* un peu moins que l’enveloppe */
-             height: 280px;   /* un peu moins que l’enveloppe */
+             width: 90%;      /* plus flexible */
+             height: 80%;     /* plus flexible */
+             max-width: 500px;
+             max-height: 350px;
              background: #fff8f0;
              border-radius: 15px;
-             padding: 20px;
+             padding: 15px;
              font-size: 0.9em;
              color: #ff66b2;
              line-height: 1.5;
              box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-             display: none;   /* caché au départ */
-             overflow-y: auto;
-             }
+             display: none;
+             overflow-y: auto; /* permet de scroller si trop long */
+             word-break: break-word; /* texte ne dépasse pas */
+}
     </style>
 </head>
 <body>
@@ -116,11 +119,17 @@
     <div id="messageDiv" style="display:none;">
        <div class="envelope" onclick="openEnvelope(this)">
          <div class="letter">
-        Il y a des instants où je me surprends j pense à comment j trouvée quelqu un comme toi  quelqu un de rare comme toi sah toi tu rends pas compte mais wallah j suis très chanceuse de t avoir dans ma vie habibi tu refais mes journées avec toi j oublie tous Tvois j t ai jamais montré un jour bli j vais pas bien deja la maintenant depuis que j perdu setti j jamais été autant heureuse am quand j serai avec toi 
-Chaque moment passé avec toi me fait comprendre à quel point je taime à quel point tu es devenu indispensable à mon existence au point que mon humeur dépend de toi matilit didi 
-Avec toi, j ai appris que l amour n est pas seulement un mot j ai réellement compris mathubet yiwen tvas tous faire pour lui sans que t te rends compte 
-Je veux être avec toi dans chaque étape de ma vie j te veux toi mais pas qlq d autre parce que mon cœur c toi qui a choisi mouhamed
-Je t aime plus que les mots ne peuvent le dire, et j ne cesse jamais de t aimer et saches que je resterai là aujourd hui, demain, et pour toujours j t’abandonnerai jamais 
+        Il y a des instants où je me surprends j pense à comment j trouvée quelqu un comme toi 
+        quelqu un de rare comme toi sah toi tu rends pas compte mais wallah j suis très chanceuse de
+        t avoir dans ma vie habibi tu refais mes journées avec toi j oublie tous Tvois j t ai jamais
+        montré un jour bli j vais pas bien deja la maintenant depuis que j perdu setti j jamais été 
+        autant heureuse am quand j serai avec toi Chaque moment passé avec toi me fait comprendre à 
+        quel point je taime à quel point tu es devenu indispensable à mon existence au point que mon 
+        humeur dépend de toi matilit didi Avec toi, j ai appris que l amour n est pas seulement un mot 
+        j ai réellement compris mathubet yiwen tvas tous faire pour lui sans que t te rends compte 
+        Je veux être avec toi dans chaque étape de ma vie j te veux toi mais pas qlq d autre parce que 
+        mon cœur c toi qui a choisi mouhamed Je t aime plus que les mots ne peuvent le dire, et j ne cesse 
+        jamais de t aimer et saches que je resterai là aujourd hui, demain, et pour toujours j t’abandonnerai jamais 
         MANEL QUI T AIME BEAUCOUP PLUS QUE TOUS 💕😋
          </div>
        </div> 
@@ -140,7 +149,7 @@ Je t aime plus que les mots ne peuvent le dire, et j ne cesse jamais de t aimer 
                 // Jouer le son
                 document.getElementById('loveSound').play();
 
-                createHearts();
+                startHearts();
             } else {
                 alert("Orh tu me decois machi akka😢");
             }
@@ -151,21 +160,27 @@ Je t aime plus que les mots ne peuvent le dire, et j ne cesse jamais de t aimer 
             el.classList.add('opened');     // fait tourner le rabat
         }
         function createHearts() {
-            for(let i=0; i<10; i++){       
+             for(let i=0; i<5; i++){       
                  let heart = document.createElement('div');
                  heart.classList.add('heart');
                  heart.innerText = '💖';
                  heart.style.left = Math.random() * window.innerWidth + 'px';
-                 heart.style.fontSize = '20px';
+                 heart.style.fontSize = (15 + Math.random() * 10) + 'px';
                  heart.style.animationDuration = (3 + Math.random() * 2) + 's';
-                 document.body.appendChild(heart);
+                document.body.appendChild(heart);
 
-                setTimeout(() => heart.remove(), 5000); // disparaissent doucement
-            }
-             setInterval(() => createHearts(), 1000); 
+                 setTimeout(() => heart.remove(), 5000); // disparaissent doucement
+             }
+        }
+
+         // Lance le cœur une seule fois
+         function startHearts() {
+             if (!heartInterval) { // pour éviter plusieurs intervalles
+                 createHearts();
+                 heartInterval = setInterval(createHearts, 1000);
+             }
         }
     </script>
 
 </body>
 </html>
-
