@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accès Secret</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffe6f0; /* rose clair */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            text-align: center;
+            overflow: hidden;
+        }
+          h1 {
+            color: #ff66b2;
+            font-size: 3em;
+            z-index: 10;
+        }
+        input {
+            padding: 10px;
+            font-size: 1em;
+            
+            margin-top: 20px;
+            border-radius: 5px;
+            border: 1px solid #ff66b2;
+        }
+         button {
+            padding: 10px 20px;
+            font-size: 1em;
+            margin-left: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #ff66b2;
+            color: white;
+            cursor: pointer;
+        }
+         button:hover {
+            background-color: #ff3399;
+        }
+        .heart {
+            position: absolute;
+            top: 0;                 /* commencent en haut */
+            font-size: 20px;        /* petite taille mignonne */
+            color: #ff66b2;
+            animation: float 4s linear infinite;
+            user-select: none;
+            z-index: 9999;          /* au-dessus de tout */
+            pointer-events: none;   /* clics passent à travers */
+        }
+
+
+         @keyframes float {
+             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+             100% { transform: translateY(30px) rotate(360deg); opacity: 0; }
+        }
+        /* Enveloppe */
+        .envelope {
+             width: 500px;
+             height: 350px;
+             background-color: #ffb6c1;
+             position: relative;
+             cursor: pointer;
+             border-radius: 15px;
+             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+             transition: transform 0.5s;
+             margin: 20px auto;
+        }
+         .envelope:hover {
+             transform: scale(1.05);
+        }
+        .envelope::before {
+             content: "";
+             position: absolute;
+             top: 0;
+             left: 0;
+             width: 0;
+             height: 0;
+             border-left: 250px solid transparent; /* moitié de la largeur */
+             border-right: 250px solid transparent;
+             border-bottom: 175px solid #ff69b4;   /* moitié de la hauteur */
+             border-radius: 0 0 15px 15px;
+             transition: transform 0.8s;
+             transform-origin: top center;
+        }
+        .letter {
+             position: absolute;
+             top: 50px;
+             left: 20px;
+             width: 460px;    /* un peu moins que l’enveloppe */
+             height: 280px;   /* un peu moins que l’enveloppe */
+             background: #fff8f0;
+             border-radius: 15px;
+             padding: 20px;
+             font-size: 0.9em;
+             color: #ff66b2;
+             line-height: 1.5;
+             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+             display: none;   /* caché au départ */
+             overflow-y: auto;
+             }
+    </style>
+</head>
+<body>
+ <div id="loginDiv">
+        <h1>Entrez le mot de passe secret 💖</h1>
+        <input type="text" id="passwordInput" placeholder="Tape ici...">
+        <button onclick="checkPassword()">Valider</button>
+    </div>
+
+    <div id="messageDiv" style="display:none;">
+       <div class="envelope" onclick="openEnvelope(this)">
+         <div class="letter">
+        Il y a des instants où je me surprends j pense à comment j trouvée quelqu un comme toi  quelqu un de rare comme toi sah toi tu rends pas compte mais wallah j suis très chanceuse de t avoir dans ma vie habibi tu refais mes journées avec toi j oublie tous Tvois j t ai jamais montré un jour bli j vais pas bien deja la maintenant depuis que j perdu setti j jamais été autant heureuse am quand j serai avec toi 
+Chaque moment passé avec toi me fait comprendre à quel point je taime à quel point tu es devenu indispensable à mon existence au point que mon humeur dépend de toi matilit didi 
+Avec toi, j ai appris que l amour n est pas seulement un mot j ai réellement compris mathubet yiwen tvas tous faire pour lui sans que t te rends compte 
+Je veux être avec toi dans chaque étape de ma vie j te veux toi mais pas qlq d autre parce que mon cœur c toi qui a choisi mouhamed
+Je t aime plus que les mots ne peuvent le dire, et j ne cesse jamais de t aimer et saches que je resterai là aujourd hui, demain, et pour toujours j t’abandonnerai jamais 
+        MANEL QUI T AIME BEAUCOUP PLUS QUE TOUS 💕😋
+         </div>
+       </div> 
+    </div>
+
+    <!-- Son doux -->
+    <audio id="loveSound" src="douce.mp3" preload="auto"></audio>
+
+    <script>
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value.trim().toLowerCase();
+            const correctPassword = "mouhamed le plus beau du monde"; // mot de passe exact
+              if(input === correctPassword) {
+                document.getElementById('loginDiv').style.display = 'none';
+                document.getElementById('messageDiv').style.display = 'block';
+                
+                // Jouer le son
+                document.getElementById('loveSound').play();
+
+                createHearts();
+            } else {
+                alert("Orh tu me decois machi akka😢");
+            }
+        }
+        function openEnvelope(el) {
+            const letter = el.querySelector('.letter');
+            letter.style.display = 'block'; // montre la lettre
+            el.classList.add('opened');     // fait tourner le rabat
+        }
+        function createHearts() {
+            for(let i=0; i<10; i++){       
+                 let heart = document.createElement('div');
+                 heart.classList.add('heart');
+                 heart.innerText = '💖';
+                 heart.style.left = Math.random() * window.innerWidth + 'px';
+                 heart.style.fontSize = '20px';
+                 heart.style.animationDuration = (3 + Math.random() * 2) + 's';
+                 document.body.appendChild(heart);
+
+                setTimeout(() => heart.remove(), 5000); // disparaissent doucement
+            }
+             setInterval(() => createHearts(), 1000); 
+        }
+    </script>
+
+</body>
+</html>
